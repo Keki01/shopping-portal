@@ -6,7 +6,7 @@ pipeline{
    tools{
        nodejs'nodejs' 
     }
-*/    
+ 
 
     stages{
         stage('one'){
