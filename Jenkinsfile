@@ -1,38 +1,41 @@
-pipeline{
+pipeline {
+  agent any
+  stages {
+    stage('Compile') {
+      steps {
+        echo 'this is the Compile job'
+        sh 'npm install'
+      }
+    }
 
-    agent any
+    stage('test') {
+      steps {
+        echo 'this is the test job'
+        sh 'npm test'
+      }
+    }
 
-// uncomment the following lines by removing /* and */ to enable
-    tools{
-       nodejs 'nodejs' 
+    stage('package') {
+      steps {
+        echo 'this is the package job'
+        sh 'npm run package'
+      }
     }
-   
-    stages{
-        stage('Compile'){
-            steps{
-                echo 'this is the Compile job'
-                sh 'npm install'
-            }
-        }
-        stage('test'){
-            steps{
-                echo 'this is the test job'
-                sh 'npm test'
-            }
-        }
-        stage('package'){
-            steps{
-                echo 'this is the package job'
-                sh 'npm run package'
-            }
-        }
+
+    stage('Archive') {
+      steps {
+        archiveArtifacts '**/distribution/*.zip'
+      }
     }
-    
-    post{
-        always{
-            echo 'this is my dojo b13 pipeline has completed...'
-        }
-        
+
+  }
+  tools {
+    nodejs 'nodejs'
+  }
+  post {
+    always {
+      echo 'this is my dojo b13 pipeline has completed...'
     }
-    
+
+  }
 }
