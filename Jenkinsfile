@@ -3,27 +3,26 @@ pipeline{
     agent any
 
 // uncomment the following lines by removing /* and */ to enable
-   tools{
-       nodejs'nodejs' 
+    tools{
+       nodejs 'nodejs' 
     }
- 
-
+   
     stages{
-        stage('one'){
+        stage('Compile'){
             steps{
-                echo 'this is the first job'
+                echo 'this is the Compile job'
                 sh 'npm install'
             }
         }
-        stage('two'){
+        stage('test'){
             steps{
-                echo 'this is the second job'
+                echo 'this is the test job'
                 sh 'npm test'
             }
         }
-        stage('three'){
+        stage('package'){
             steps{
-                echo 'this is the third job'
+                echo 'this is the package job'
                 sh 'npm run package'
             }
         }
@@ -31,7 +30,7 @@ pipeline{
     
     post{
         always{
-            echo 'this my dojo batch 13 nodejs  pipeline completed...'
+            echo 'this is my dojo b13 pipeline has completed...'
         }
         
     }
